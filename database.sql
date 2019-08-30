@@ -12,18 +12,19 @@ CREATE TABLE "genres" (
 );
 
 
--- CREATE JUNCTION TABLE
--- You will need to create the junction table that stores the relationships between "movies" and "genres"
--- This table will need to be populated with some data as well (INSERTS)
--- Recall that this Junction Table will just be a table of ids!
-
+--junction table
+CREATE TABLE "movies_genres" (
+	"id" SERIAL PRIMARY KEY,
+	"movies_id" INT REFERENCES "movies",
+	"genres_id" INT REFERENCES "genres"
+);
 
 
 --------[ DATA! ]---------
 
 -- starter movies
 INSERT INTO "movies" ("title", "poster", "description")
-VALUES 
+VALUES
 ('Avatar', 'images/avatar.jpeg', 'Avatar (marketed as James Cameron''s Avatar) is a 2009 American epic science fiction film directed, written, produced, and co-edited by James Cameron, and stars Sam Worthington, Zoe Saldana, Stephen Lang, Michelle Rodriguez, and Sigourney Weaver. The film is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the mineral unobtanium, a room-temperature superconductor. The expansion of the mining colony threatens the continued existence of a local tribe of Na''vi – a humanoid species indigenous to Pandora. The film''s title refers to a genetically engineered Na''vi body operated from the brain of a remotely located human that is used to interact with the natives of Pandora.'),
 ('Beauty and the Beast', 'images/beauty-and-the-beast.jpg', 'Beauty and the Beast is a 2017 American musical romantic fantasy film directed by Bill Condon from a screenplay written by Stephen Chbosky and Evan Spiliotopoulos. Co-produced by Walt Disney Pictures and Mandeville Films, it was filmed in the UK with predominantly British principal actors. The film is a live-action remake of Disney''s 1991 animated film of the same name, itself an adaptation of Jeanne-Marie Leprince de Beaumont''s 18th-century fairy tale. The film features an ensemble cast that includes Emma Watson and Dan Stevens as the eponymous characters with Luke Evans, Kevin Kline, Josh Gad, Ewan McGregor, Stanley Tucci, Audra McDonald, Gugu Mbatha-Raw, Ian McKellen, and Emma Thompson in supporting roles.'),
 ('Captain Marvel', 'images/captain-marvel.jpg', 'Captain Marvel is a 2019 American superhero film based on the Marvel Comics character Carol Danvers. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the twenty-first film in the Marvel Cinematic Universe (MCU). The film is written and directed by Anna Boden and Ryan Fleck, with Geneva Robertson-Dworet also contributing to the screenplay. Brie Larson stars as Danvers, alongside Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg, and Jude Law. Set in 1995, the story follows Danvers as she becomes Captain Marvel after Earth is caught in the center of a galactic conflict between two alien civilizations.'),
@@ -41,7 +42,7 @@ VALUES
 
 -- starter genres
 INSERT INTO "genres" ("name")
-VALUES 
+VALUES
 ('Adventure'),
 ('Animated'),
 ('Biographical'),
@@ -55,3 +56,47 @@ VALUES
 ('Science Fiction'),
 ('Space-Opera'),
 ('Superhero');
+
+-- starter junction table
+INSERT
+	INTO "movies_genres"
+		("movies_id", "genres_id")
+	VALUES
+		(1,1),
+		(1,3),
+		(1,9),
+		(1,12),
+		(2,9),
+		(2,10),
+		(2,11),
+		(3,1),
+		(3,12),
+		(3,14),
+		(4,3),
+		(4,5),
+		(5,7),
+		(6,2),
+		(6,8),
+		(6,9),
+		(7,1),
+		(7,12),
+		(8,2),
+		(8,8),
+		(8,9),
+		(9,3),
+		(9,5),
+		(10,1),
+		(10,2),
+		(10,8),
+		(10,12),
+		(10,13),
+		(11,5),
+		(11,7),
+		(11,12),
+		(12,4),
+		(12,7),
+		(13,7),
+		(13,8),
+		(13,11),
+		(14,3),
+		(14,5);
