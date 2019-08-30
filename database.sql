@@ -100,3 +100,21 @@ INSERT
 		(13,11),
 		(14,3),
 		(14,5);
+
+
+--SELECTS!
+
+--shows all movies, with genres column showing array of genres
+SELECT title, array_agg(name) as genres
+	FROM
+		movies
+	JOIN
+		movies_genres
+	ON
+		movies.id = movies_genres.movies_id
+	JOIN
+		genres
+	ON
+		genres.id = movies_genres.genres_id
+	GROUP BY
+		movies.id;
