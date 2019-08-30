@@ -30,18 +30,25 @@ const styles = theme => ({
 });
 
 class Home extends Component {
-  render() {
+	componentDidMount() {
+		this.props.dispatch({type: 'FETCH_MOVIES'})
+	}
+	render() {
     const {classes} = this.props
     return (
-      <div className={classes.root}>
+			<div className={classes.root}>
+				{JSON.stringify(this.props.movies)}
         <Paper className={classes.Paper}>
-          <Grid container spacing={2}>
-            
+          <Grid container spacing={8}>
+
           </Grid>
         </Paper>
       </div>
     );
   }
 }
+const mapStateToProps = reduxStore => ({
+	movies: reduxStore.movies
+})
 
-export default withStyles(styles)(Home);
+export default connect(mapStateToProps)(withStyles(styles)(Home));
