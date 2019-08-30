@@ -105,7 +105,7 @@ INSERT
 --SELECTS!
 
 --shows all movies, with genres column showing array of genres
-SELECT title, array_agg(name) as genres
+SELECT title, poster, array_agg(name)as genres, description
 	FROM
 		movies
 	JOIN
