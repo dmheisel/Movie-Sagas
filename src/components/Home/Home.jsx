@@ -16,6 +16,7 @@ const styles = theme => ({
 		padding: theme.spacing(2),
 		margin: 'auto',
 		maxWidth: '80%',
+		background: theme.palette.background
 	},
 	grid: {
 		height: '90vh',

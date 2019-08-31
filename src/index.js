@@ -10,13 +10,23 @@ import logger from 'redux-logger';
 // saga imports
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
+//material-ui theme imports
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+	palette: {
+		primary: { main: '#d12c2c', contrastText: '#ffffff' },
+		secondary: { main: '#1dbfbf', contrastText: '#000000' }
+	}
+});
 
 //SAGA stuff
 // Create the rootSaga generator function
 function* rootSaga() {
 	yield takeEvery('FETCH_MOVIES', fetchMovies);
-	yield takeEvery('SELECT_MOVIE', selectMovie)
-	yield takeEvery('EDIT_DESCRIPTION', editDescription)
+	yield takeEvery('SELECT_MOVIE', selectMovie);
+	yield takeEvery('EDIT_DESCRIPTION', editDescription);
 }
 
 function* fetchMovies(action) {
@@ -30,8 +40,8 @@ function* fetchMovies(action) {
 
 function* selectMovie(action) {
 	try {
-		let response = yield axios.get(`/movies/${action.payload}`)
-		yield put({type: 'DISPLAY_MOVIE', payload: response.data})
+		let response = yield axios.get(`/movies/${action.payload}`);
+		yield put({ type: 'DISPLAY_MOVIE', payload: response.data });
 	} catch (error) {
 		yield console.log('error on fetching selected movie');
 	}
@@ -39,10 +49,10 @@ function* selectMovie(action) {
 
 function* editDescription(action) {
 	try {
-		yield axios.put(`/movies/${action.payload.id}`, action.payload)
-		yield put({type: 'SELECT_MOVIE', payload: action.payload.id})
+		yield axios.put(`/movies/${action.payload.id}`, action.payload);
+		yield put({ type: 'SELECT_MOVIE', payload: action.payload.id });
 	} catch (error) {
-		yield console.log(`error on PUT route to server: `, error)
+		yield console.log(`error on PUT route to server: `, error);
 	}
 }
 
@@ -71,14 +81,14 @@ const genres = (state = [], action) => {
 };
 
 // Used to store the current movie for details/editing
-const currentMovie = (state = {genres: []}, action) => {
+const currentMovie = (state = { genres: [] }, action) => {
 	switch (action.type) {
 		case 'DISPLAY_MOVIE':
 			return action.payload;
 		default:
 			return state;
 	}
-}
+};
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -96,7 +106,9 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
 	<Provider store={storeInstance}>
-		<App />
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
 	</Provider>,
 	document.getElementById('root')
 );
