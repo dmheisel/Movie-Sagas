@@ -15,7 +15,7 @@ const styles = theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		margin: 'auto',
-		maxWidth: '80%',
+		maxWidth: '95%',
 		background: theme.palette.background
 	},
 	grid: {
@@ -30,28 +30,28 @@ class Home extends Component {
 		this.props.dispatch({ type: 'FETCH_MOVIES' });
 	}
 
-	handleClick = (id) => {
-		this.props.dispatch({ type: 'SELECT_MOVIE', payload: id })
-		this.props.history.push('/details')
-	}
+	handleClick = id => {
+		this.props.dispatch({ type: 'SELECT_MOVIE', payload: id });
+		this.props.history.push('/details');
+	};
 
 	render() {
 		const { classes } = this.props;
 
 		let gridHtml = this.props.movies.map(movie => {
 			return (
-				<MovieItem key={movie.id} movie={movie} handleClick={this.handleClick}/>
+				<Grid container key={movie.id} item xs={12} sm={6} md={4}>
+					<MovieItem movie={movie} handleClick={this.handleClick} />
+				</Grid>
 			);
 		});
 
 		return (
-			<Grid className={classes.root}>
-				<Paper className={classes.paper}>
-					<Grid className={classes.grid} container spacing={2}>
-						{gridHtml}
-					</Grid>
-				</Paper>
-			</Grid>
+			<Paper className={classes.paper}>
+				<Grid className={classes.grid} container spacing={2}>
+					{gridHtml}
+				</Grid>
+			</Paper>
 		);
 	}
 }

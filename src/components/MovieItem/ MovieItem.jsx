@@ -9,54 +9,46 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-	root: {
-		flexGrow: 1
-	},
-	paper: {
-		padding: theme.spacing(2),
-		margin: 'auto',
-		maxWidth: '80%'
-	},
+
 	moviePoster: {
 		padding: theme.spacing(2),
 		margin: 'auto',
 	},
 	image: {
 		width: 'auto',
-		height: 250
+		margin: 'auto'
 	},
 	img: {
 		margin: 'auto',
 		display: 'block',
 		maxWidth: '100%',
 		maxHeight: '100%'
-	}
+	},
 });
 
 class MovieItem extends Component {
-
 	render() {
 		const { classes } = this.props;
 
 		return (
-			<Grid container item xs={12}>
-				<Paper className={classes.moviePoster}>
-					<Grid item>
-						<ButtonBase
-							className={classes.image}
-							onClick={() => this.props.handleClick(this.props.movie.id)}>
-							<img
-								className={classes.img}
-								alt='complex'
-								src={this.props.movie.poster}
-							/>
-						</ButtonBase>
-					</Grid>
-					<Grid item>
-						<Typography variant='body2'>{this.props.movie.title}</Typography>
-					</Grid>
-				</Paper>
-			</Grid>
+			<Paper className={classes.moviePoster}>
+				<Grid item>
+					<ButtonBase
+						className={classes.image}
+						onClick={() => this.props.handleClick(this.props.movie.id)}>
+						<img
+							className={classes.img}
+							alt='complex'
+							src={this.props.movie.poster}
+						/>
+					</ButtonBase>
+				</Grid>
+				<Grid item>
+					<Typography variant='caption' noWrap={false}>
+						{this.props.movie.title}
+					</Typography>
+				</Grid>
+			</Paper>
 		);
 	}
 }
