@@ -40,7 +40,7 @@ function* fetchMovies(action) {
 
 function* selectMovie(action) {
 	try {
-		let response = yield axios.get(`/movies/${action.payload}`);
+		let response = yield axios.get(`/movies/details/${action.payload}`);
 		yield put({ type: 'DISPLAY_MOVIE', payload: response.data });
 	} catch (error) {
 		yield console.log('error on fetching selected movie');

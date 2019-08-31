@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 //get specific movie and details
-router.get('/:id', (req, res) => {
+router.get('/details/:id', (req, res) => {
   let id = req.params.id
   let sqlText = `
     SELECT movies.id, title, poster, array_agg(name)as genres, description
