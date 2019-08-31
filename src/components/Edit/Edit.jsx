@@ -29,7 +29,16 @@ class Edit extends Component {
 		titleText: this.props.movie.title,
 		descriptionText: this.props.movie.description
 	};
-
+	componentDidMount() {
+		this.props.dispatch({
+			type: 'SELECT_MOVIE',
+			payload: this.props.match.params.id
+		});
+		this.setState({
+			titleText: this.props.movie.title,
+			descriptionText: this.props.movie.description
+		})
+	}
 	handleSubmit = () => {
 		let editedMovie = {
 			id: this.props.movie.id,
@@ -38,7 +47,7 @@ class Edit extends Component {
 		};
 		console.log(editedMovie);
 		this.props.dispatch({ type: 'EDIT_MOVIE', payload: editedMovie });
-		this.props.history.push('/details');
+		this.props.history.push(`/details/${this.props.movie.id}`);
 	};
 
 	render() {
@@ -68,7 +77,7 @@ class Edit extends Component {
 						variant='outlined'
 					/>
 					<Button
-						onClick={() => this.props.history.push('/details')}
+						onClick={() => this.props.history.push(`/details/${this.props.movie.id}`)}
 						color='secondary'>
 						Cancel
 					</Button>

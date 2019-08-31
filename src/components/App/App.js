@@ -12,8 +12,8 @@ class App extends Component {
 			<Router>
 				<CssBaseline />
 				<Route exact path='/' component={Home} />
-				<Route path='/details' component={Details} />
-				<Route path='/edit' component={Edit} />
+				<Route path='/details/:id' component={Details} />
+				<Route path='/edit/:id' component={Edit} />
 			</Router>
 		);
   }

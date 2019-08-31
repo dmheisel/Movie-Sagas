@@ -21,6 +21,9 @@ const styles = theme => ({
 });
 
 class Details extends Component {
+	componentDidMount() {
+		this.props.dispatch({type: 'SELECT_MOVIE', payload: this.props.match.params.id})
+	}
 	render() {
 		const { classes } = this.props;
 
@@ -40,7 +43,7 @@ class Details extends Component {
 						Return to List
 					</Button>
 					<Button
-						onClick={() => this.props.history.push('/edit')}
+						onClick={() => this.props.history.push(`/edit/${this.props.match.params.id}`)}
 						color='secondary'>
 						Edit
 					</Button>

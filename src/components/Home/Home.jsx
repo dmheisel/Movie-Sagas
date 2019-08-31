@@ -31,8 +31,8 @@ class Home extends Component {
 	}
 
 	handleClick = id => {
-		this.props.dispatch({ type: 'SELECT_MOVIE', payload: id });
-		this.props.history.push('/details');
+		// this.props.dispatch({ type: 'SELECT_MOVIE', payload: id });
+		this.props.history.push(`/details/${id}`);
 	};
 
 	render() {
