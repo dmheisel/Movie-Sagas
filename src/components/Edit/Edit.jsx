@@ -17,7 +17,7 @@ const styles = theme => ({
 		margin: 'auto',
 		width: '80vw'
 	},
-	textField: {
+	descriptionField: {
 		width: '75vw',
 		marginLeft: theme.spacing(1),
 		marginRight: theme.spacing(1)
@@ -26,11 +26,12 @@ const styles = theme => ({
 
 class Edit extends Component {
 	state = {
-		text: this.props.movie.description
+		titleText: this.props.movie.title,
+		descriptionText: this.props.movie.description
 	};
 
 	handleSubmit = () => {
-		let editedMovie = { id: this.props.movie.id, description: this.state.text };
+		let editedMovie = { id: this.props.movie.id, description: this.state.descriptionText };
 		console.log(editedMovie);
 		this.props.dispatch({ type: 'EDIT_DESCRIPTION', payload: editedMovie });
 		this.props.history.push('/details')
@@ -42,20 +43,30 @@ class Edit extends Component {
 			<div className={classes.root}>
 				<Paper className={classes.paper}>
 					<TextField
-						id='Text Input Field'
-						label='Edit Description'
+						id='MovieTitleInput'
+						label='Edit Movie Title'
+						value={this.state.titleText}
+						onChange={e => this.setState({ titleText: e.target.value })}
+						className={classes.titleField}
+						margin="normal"
+						helperText="Edit Movie Title"
+						variant="outlined"
+						/>
+					<TextField
+						id='MovieDescriptionInput'
+						label='Edit Movie Description'
 						multiline
-						value={this.state.text}
-						onChange={e => this.setState({ text: e.target.value })}
-						className={classes.textField}
+						value={this.state.descriptionText}
+						onChange={e => this.setState({ descriptionText: e.target.value })}
+						className={classes.descriptionField}
 						margin='normal'
-						helperText='Edit Description'
+						helperText='Edit Movie Description'
 						variant='outlined'
 					/>
 					<Button
-						onClick={() => this.props.history.push('/')}
+						onClick={() => this.props.history.push('/details')}
 						color='secondary'>
-						Return to List
+						Cancel
 					</Button>
 					<Button onClick={this.handleSubmit} color='secondary'>
 						Submit

@@ -27,6 +27,9 @@ class Details extends Component {
 		return (
 			<div className={classes.root}>
 				<Paper className={classes.paper}>
+					<Typography variant="h3">
+						{this.props.movie.title}
+					</Typography>
 					<Typography variant='body1'>
 						{this.props.movie.description}
 					</Typography>
