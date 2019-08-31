@@ -50,7 +50,7 @@ class MovieItem extends Component {
 					</ButtonBase>
 				</Grid>
 				<Grid xs={12} item>
-					<Typography className={classes.title}variant='caption' noWrap={false}>
+					<Typography variant='subtitle1' noWrap={false}>
 						{this.props.movie.title}
 					</Typography>
 				</Grid>
