@@ -14,7 +14,7 @@ const styles = theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		margin: 'auto',
-		maxWidth: '80%'
+		width: '80vw'
 	}
 });
 
