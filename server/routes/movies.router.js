@@ -6,7 +6,7 @@ const router = express.Router();
 //get movies from database
 router.get('/', (req, res) => {
 	let sqlText = `
-    SELECT title, poster, array_agg(name)as genres, description
+    SELECT movies.id, title, poster, array_agg(name)as genres, description
 	FROM
 		movies
 	JOIN
