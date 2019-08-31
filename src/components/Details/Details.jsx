@@ -36,7 +36,7 @@ class Details extends Component {
 					<Typography variant='body1'>
 						{this.props.movie.description}
 					</Typography>
-					<GenreList/>
+					<GenreList genres={this.props.movie.genres} inDetails={true}/>
 					<Button
 						onClick={() => this.props.history.push('/')}
 						color='secondary'>

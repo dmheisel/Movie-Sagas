@@ -6,9 +6,19 @@ const router = express.Router();
 //get all movies from database
 router.get('/', (req, res) => {
 	let sqlText = `
-    SELECT id, title, poster
-      FROM movies
-      ORDER BY title ASC`;
+    SELECT movies.id, title, poster, array_agg(genres.name)as genres
+      FROM
+		    movies
+    	JOIN
+		    movies_genres
+    	ON
+	     	movies.id = movies_genres.movies_id
+    	JOIN
+	    	genres
+	    ON
+        genres.id = movies_genres.genres_id
+      GROUP BY
+        movies.id;`;
 
   pool
     .query(sqlText)
@@ -26,7 +36,7 @@ router.get('/', (req, res) => {
 router.get('/details/:id', (req, res) => {
   let id = req.params.id
   let sqlText = `
-    SELECT movies.id, title, poster, array_agg(name)as genres, description
+    SELECT movies.id, title, poster, array_agg(genres.name)as genres, description
 	FROM
 		movies
 	JOIN

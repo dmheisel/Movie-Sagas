@@ -7,12 +7,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
+import GenreList from '../GenreList/GenreList';
 
 const styles = theme => ({
 
 	moviePoster: {
 		padding: theme.spacing(2),
 		margin: 'auto',
+		maxWidth: 225
 	},
 	image: {
 		width: 'auto',
@@ -24,6 +26,10 @@ const styles = theme => ({
 		maxWidth: '100%',
 		maxHeight: '100%'
 	},
+	title: {
+		textAlign: 'center'
+	}
+
 });
 
 class MovieItem extends Component {
@@ -32,7 +38,7 @@ class MovieItem extends Component {
 
 		return (
 			<Paper className={classes.moviePoster}>
-				<Grid item>
+				<Grid xs={12} item>
 					<ButtonBase
 						className={classes.image}
 						onClick={() => this.props.handleClick(this.props.movie.id)}>
@@ -43,10 +49,13 @@ class MovieItem extends Component {
 						/>
 					</ButtonBase>
 				</Grid>
-				<Grid item>
-					<Typography variant='caption' noWrap={false}>
+				<Grid xs={12} item>
+					<Typography className={classes.title}variant='caption' noWrap={false}>
 						{this.props.movie.title}
 					</Typography>
+				</Grid>
+				<Grid xs={12} item>
+					<GenreList genres={this.props.movie.genres} />
 				</Grid>
 			</Paper>
 		);
