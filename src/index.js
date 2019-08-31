@@ -26,7 +26,7 @@ const theme = createMuiTheme({
 function* rootSaga() {
 	yield takeEvery('FETCH_MOVIES', fetchMovies);
 	yield takeEvery('SELECT_MOVIE', selectMovie);
-	yield takeEvery('EDIT_DESCRIPTION', editDescription);
+	yield takeEvery('EDIT_MOVIE', editMovie);
 }
 
 function* fetchMovies(action) {
@@ -47,7 +47,7 @@ function* selectMovie(action) {
 	}
 }
 
-function* editDescription(action) {
+function* editMovie(action) {
 	try {
 		yield axios.put(`/movies/${action.payload.id}`, action.payload);
 		yield put({ type: 'SELECT_MOVIE', payload: action.payload.id });

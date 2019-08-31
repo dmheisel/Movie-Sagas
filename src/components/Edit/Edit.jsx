@@ -31,10 +31,14 @@ class Edit extends Component {
 	};
 
 	handleSubmit = () => {
-		let editedMovie = { id: this.props.movie.id, description: this.state.descriptionText };
+		let editedMovie = {
+			id: this.props.movie.id,
+			title: this.state.titleText,
+			description: this.state.descriptionText
+		};
 		console.log(editedMovie);
-		this.props.dispatch({ type: 'EDIT_DESCRIPTION', payload: editedMovie });
-		this.props.history.push('/details')
+		this.props.dispatch({ type: 'EDIT_MOVIE', payload: editedMovie });
+		this.props.history.push('/details');
 	};
 
 	render() {
@@ -48,10 +52,10 @@ class Edit extends Component {
 						value={this.state.titleText}
 						onChange={e => this.setState({ titleText: e.target.value })}
 						className={classes.titleField}
-						margin="normal"
-						helperText="Edit Movie Title"
-						variant="outlined"
-						/>
+						margin='normal'
+						helperText='Edit Movie Title'
+						variant='outlined'
+					/>
 					<TextField
 						id='MovieDescriptionInput'
 						label='Edit Movie Description'
