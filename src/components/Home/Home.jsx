@@ -4,33 +4,23 @@ import { connect } from 'react-redux';
 //material-ui imports
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
+import MovieItem from '../MovieItem/ MovieItem';
 
 const styles = theme => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		marginTop: '2.5%'
 	},
 	paper: {
 		padding: theme.spacing(2),
 		margin: 'auto',
-		maxWidth: '80%'
+		maxWidth: '80%',
 	},
-	moviePoster: {
-		padding: theme.spacing(2),
-		margin: 'auto',
-		// width: '30vw'
-	},
-	image: {
-		width: 'auto',
-		height: 250
-	},
-	img: {
-		margin: 'auto',
-		display: 'block',
-		maxWidth: '100%',
-		maxHeight: '100%'
+	grid: {
+		height: '90vh',
+		overflow: 'auto',
+		margin: 'auto'
 	}
 });
 
@@ -47,35 +37,20 @@ class Home extends Component {
 	render() {
 		const { classes } = this.props;
 
-		let gridHtml = this.props.movies.map((movie, index) => {
+		let gridHtml = this.props.movies.map(movie => {
 			return (
-				<Grid container item key={index} xs={12} md={6} lg={4}>
-					<Paper className={classes.moviePoster}>
-						<Grid item>
-							<ButtonBase
-								className={classes.image}
-								onClick={() => this.handleClick(movie.id)}>
-								<img className={classes.img} alt='complex' src={movie.poster} />
-							</ButtonBase>
-						</Grid>
-						<Grid item>
-							<Typography variant='body2'>
-								{movie.title}
-							</Typography>
-						</Grid>
-					</Paper>
-				</Grid>
+				<MovieItem key={movie.id} movie={movie} handleClick={this.handleClick}/>
 			);
 		});
 
 		return (
-			<div className={classes.root}>
+			<Grid className={classes.root}>
 				<Paper className={classes.paper}>
-					<Grid container spacing={2}>
+					<Grid className={classes.grid} container spacing={2}>
 						{gridHtml}
 					</Grid>
 				</Paper>
-			</div>
+			</Grid>
 		);
 	}
 }

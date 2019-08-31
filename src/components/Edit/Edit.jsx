@@ -9,7 +9,8 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		marginTop: '2.5%'
 	},
 	paper: {
 		padding: theme.spacing(2),

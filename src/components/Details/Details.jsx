@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GenreList from '../GenreList/GenreList';
 
 //material-ui imports
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +10,8 @@ import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		marginTop: '2.5%'
 	},
 	paper: {
 		padding: theme.spacing(2),
@@ -28,6 +30,7 @@ class Details extends Component {
 					<Typography variant='body1'>
 						{this.props.movie.description}
 					</Typography>
+					<GenreList/>
 					<Button
 						onClick={() => this.props.history.push('/')}
 						color='secondary'>

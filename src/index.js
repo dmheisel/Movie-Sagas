@@ -71,7 +71,7 @@ const genres = (state = [], action) => {
 };
 
 // Used to store the current movie for details/editing
-const currentMovie = (state = {}, action) => {
+const currentMovie = (state = {genres: []}, action) => {
 	switch (action.type) {
 		case 'DISPLAY_MOVIE':
 			return action.payload;
