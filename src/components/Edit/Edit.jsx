@@ -31,7 +31,8 @@ class Edit extends Component {
 	handleSubmit = () => {
 		let editedMovie = { id: this.props.movie.id, description: this.state.text };
 		console.log(editedMovie);
-		this.props.dispatch({ type: 'PUT_DESCRIPTION', payload: editedMovie });
+		this.props.dispatch({ type: 'EDIT_DESCRIPTION', payload: editedMovie });
+		this.props.history.push('/details')
 	};
 
 	render() {
@@ -40,14 +41,14 @@ class Edit extends Component {
 			<div className={classes.root}>
 				<Paper className={classes.paper}>
 					<TextField
-						id='outlined-multiline-flexible'
-						label='Multiline'
+						id='Text Input Field'
+						label='Edit Description'
 						multiline
 						value={this.state.text}
 						onChange={e => this.setState({ text: e.target.value })}
 						className={classes.textField}
 						margin='normal'
-						helperText='edit text'
+						helperText='Edit Description'
 						variant='outlined'
 					/>
 					<Button

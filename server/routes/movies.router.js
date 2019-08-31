@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
   pool
     .query(sqlText)
     .then(result => {
-      console.log('GET requestion from database successful')
+      console.log('GET request from database successful')
       res.send(result.rows)
     })
     .catch(error => {
@@ -31,5 +31,27 @@ router.get('/', (req, res) => {
       res.sendStatus(500)
     })
 });
+
+router.put('/:id', (req, res) => {
+  let id = req.params.id;
+  let text = req.body.description
+
+  let sqlText = `
+    UPDATE "movies"
+      SET "description" = $1
+      WHERE "id" = $2;`
+
+  pool
+    .query(sqlText, [text, id])
+    .then(result => {
+      console.log('PUT route to database successful')
+      res.sendStatus(204)
+    })
+    .catch(error => {
+      console.log('Error on PUT route to database: ', error);
+      res.sendStatus(500)
+    })
+})
+
 
 module.exports = router;

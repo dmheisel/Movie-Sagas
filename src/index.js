@@ -15,6 +15,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 // Create the rootSaga generator function
 function* rootSaga() {
 	yield takeEvery('FETCH_MOVIES', fetchMovies);
+	yield takeEvery('EDIT_DESCRIPTION', editDescription)
 }
 
 function* fetchMovies(action) {
@@ -23,6 +24,15 @@ function* fetchMovies(action) {
 		yield put({ type: 'SET_MOVIES', payload: response.data });
 	} catch (error) {
 		yield console.log('error on fetching movies from server');
+	}
+}
+
+function* editDescription(action) {
+	try {
+		yield axios.put(`/movies/${action.payload.id}`, action.payload)
+		yield put({type: 'FETCH_MOVIES'})
+	} catch (error) {
+		yield console.log(`error on PUT route to server: `, error)
 	}
 }
 
