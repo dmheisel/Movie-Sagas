@@ -50,11 +50,22 @@ const genres = (state = [], action) => {
 	}
 };
 
+// Used to store the current movie for details/editing
+const currentMovie = (state = {}, action) => {
+	switch (action.type) {
+		case 'DISPLAY_MOVIE':
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
 	combineReducers({
 		movies,
-		genres
+		genres,
+		currentMovie
 	}),
 	// Add sagaMiddleware to our store
 	applyMiddleware(sagaMiddleware, logger)
