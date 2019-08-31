@@ -65,16 +65,17 @@ router.get('/details/:id', (req, res) => {
 
 //edit description of movie
 router.put('/:id', (req, res) => {
-  let id = req.params.id;
-  let text = req.body.description
-
   let sqlText = `
     UPDATE "movies"
-      SET "description" = $1
-      WHERE "id" = $2;`
+    SET
+      "title" = $1,
+      "description" = $2
+    WHERE
+      "id" = $3;`
 
+  let values = [req.body.title, req.body.description, req.params.id]
   pool
-    .query(sqlText, [text, id])
+    .query(sqlText, values)
     .then(result => {
       console.log('PUT route to database successful')
       res.sendStatus(204)
