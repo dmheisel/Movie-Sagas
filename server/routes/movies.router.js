@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 //set up router
 const router = express.Router();
 
-//get movies from database
+//get all movies from database
 router.get('/', (req, res) => {
 	let sqlText = `
     SELECT movies.id, title, poster, array_agg(name)as genres, description
@@ -32,6 +32,38 @@ router.get('/', (req, res) => {
     })
 });
 
+//get specific movie and details
+router.get('/:id', (req, res) => {
+  let id = req.params.id
+  let sqlText = `
+    SELECT movies.id, title, poster, array_agg(name)as genres, description
+	FROM
+		movies
+	JOIN
+		movies_genres
+	ON
+		movies.id = movies_genres.movies_id
+	JOIN
+		genres
+	ON
+    genres.id = movies_genres.genres_id
+  WHERE movies.id = $1
+	GROUP BY
+    movies.id;`;
+
+  pool
+    .query(sqlText, [id])
+    .then(result => {
+      console.log(`successful GET route for selecting movie`)
+      res.send(result.rows[0])
+    })
+    .catch(error => {
+      console.log(`error on GET route for selecting movie: `, error)
+      res.sendStatus(500)
+    })
+})
+
+//edit description of movie
 router.put('/:id', (req, res) => {
   let id = req.params.id;
   let text = req.body.description

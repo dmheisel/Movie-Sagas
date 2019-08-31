@@ -39,8 +39,8 @@ class Home extends Component {
 		this.props.dispatch({ type: 'FETCH_MOVIES' });
 	}
 
-	handleClick = (movie) => {
-		this.props.dispatch({ type: 'DISPLAY_MOVIE', payload: movie })
+	handleClick = (id) => {
+		this.props.dispatch({ type: 'SELECT_MOVIE', payload: id })
 		this.props.history.push('/details')
 	}
 
@@ -54,7 +54,7 @@ class Home extends Component {
 						<Grid item>
 							<ButtonBase
 								className={classes.image}
-								onClick={() => this.handleClick(movie)}>
+								onClick={() => this.handleClick(movie.id)}>
 								<img className={classes.img} alt='complex' src={movie.poster} />
 							</ButtonBase>
 						</Grid>

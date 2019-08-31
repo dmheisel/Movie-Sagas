@@ -30,7 +30,6 @@ class Details extends Component {
 					</Typography>
 					<Button
 						onClick={() => this.props.history.push('/')}
-
 						color='secondary'>
 						Return to List
 					</Button>
