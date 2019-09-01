@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GenreList from '../GenreList/GenreList';
-
 //material-ui imports
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import { Typography, Paper, Button } from '@material-ui/core';
 
 //styling for page
 const styles = theme => ({
@@ -45,7 +42,7 @@ class Details extends Component {
 		return (
 			<Paper className={classes.paper}>
 				{/* Paper is background behind movie info */}
-				<div id="posterDiv">
+				<div id='posterDiv'>
 					<img src={this.props.movie.poster} alt='Movie Poster' />
 				</div>
 				<div className={classes.content}>

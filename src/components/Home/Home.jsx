@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //material-ui imports
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MovieItem from '../MovieItem/ MovieItem';
 

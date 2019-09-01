@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 //material-ui imports
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import { Paper, Typography, ButtonBase } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import GenreList from '../GenreList/GenreList';
 
