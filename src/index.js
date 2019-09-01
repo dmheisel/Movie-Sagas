@@ -14,6 +14,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
+//creates theme to provide to page
 const theme = createMuiTheme({
 	palette: {
 		primary: { main: '#d12c2c', contrastText: '#ffffff' },
@@ -22,13 +23,14 @@ const theme = createMuiTheme({
 });
 
 //SAGA stuff
-// Create the rootSaga generator function
+// Create the rootSaga generator function to provide all saga actions
 function* rootSaga() {
 	yield takeEvery('FETCH_MOVIES', fetchMovies);
 	yield takeEvery('SELECT_MOVIE', selectMovie);
 	yield takeEvery('EDIT_MOVIE', editMovie);
 }
 
+//saga function to fetch all moves from database
 function* fetchMovies(action) {
 	try {
 		let response = yield axios.get('/movies');
@@ -38,6 +40,7 @@ function* fetchMovies(action) {
 	}
 }
 
+//saga function to select a specific movie from database
 function* selectMovie(action) {
 	try {
 		let response = yield axios.get(`/movies/details/${action.payload}`);
@@ -47,6 +50,7 @@ function* selectMovie(action) {
 	}
 }
 
+//saga function to edit movie in database
 function* editMovie(action) {
 	try {
 		yield axios.put(`/movies/${action.payload.id}`, action.payload);
@@ -55,9 +59,6 @@ function* editMovie(action) {
 		yield console.log(`error on PUT route to server: `, error);
 	}
 }
-
-// Create sagaMiddleware
-const sagaMiddleware = createSagaMiddleware();
 
 //REDUCERS
 // Used to store movies returned from the server
@@ -70,7 +71,7 @@ const movies = (state = [], action) => {
 	}
 };
 
-// Used to store the movie genres
+// Used to store the movie genres --  unused?
 const genres = (state = [], action) => {
 	switch (action.type) {
 		case 'SET_GENRES':
@@ -90,6 +91,9 @@ const currentMovie = (state = { genres: [] }, action) => {
 	}
 };
 
+// Create sagaMiddleware
+const sagaMiddleware = createSagaMiddleware();
+
 // Create one store that all components can use
 const storeInstance = createStore(
 	combineReducers({
@@ -100,7 +104,6 @@ const storeInstance = createStore(
 	// Add sagaMiddleware to our store
 	applyMiddleware(sagaMiddleware, logger)
 );
-
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 

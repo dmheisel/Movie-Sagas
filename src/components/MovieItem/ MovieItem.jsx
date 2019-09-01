@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 //material-ui imports
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -8,8 +6,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
 import GenreList from '../GenreList/GenreList';
 
+//styling for page
 const styles = theme => ({
-
 	moviePoster: {
 		padding: theme.spacing(2),
 		margin: 'auto',
@@ -28,7 +26,6 @@ const styles = theme => ({
 	title: {
 		textAlign: 'center'
 	}
-
 });
 
 class MovieItem extends Component {
@@ -37,22 +34,23 @@ class MovieItem extends Component {
 
 		return (
 			<Paper className={classes.moviePoster}>
-					<ButtonBase
-						className={classes.image}
-						onClick={() => this.props.handleClick(this.props.movie.id)}>
-						<img
-							className={classes.img}
-							alt='complex'
-							src={this.props.movie.poster}
-						/>
-					</ButtonBase>
-					<Typography variant='subtitle1' noWrap={false}>
-						{this.props.movie.title}
-					</Typography>
-					<GenreList genres={this.props.movie.genres} />
+				<ButtonBase
+					// ButtonBase allows user to click anywhere on poster
+					className={classes.image}
+					onClick={() => this.props.handleClick(this.props.movie.id)}>
+					<img
+						className={classes.img}
+						alt='complex'
+						src={this.props.movie.poster}
+					/>
+				</ButtonBase>
+				<Typography variant='subtitle1' noWrap={false}>
+					{this.props.movie.title}
+				</Typography>
+				<GenreList genres={this.props.movie.genres} />
 			</Paper>
 		);
 	}
 }
 
-export default connect()(withStyles(styles)(MovieItem));
+export default withStyles(styles)(MovieItem);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 //material-ui imports
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import MovieItem from '../MovieItem/ MovieItem';
 
+//styling for page
 const styles = theme => ({
 	paper: {
 		flexGrow: 1,
@@ -26,19 +26,22 @@ const styles = theme => ({
 
 class Home extends Component {
 	componentDidMount() {
+		//fetches moveis on component mount, saga sets to state
 		this.props.dispatch({ type: 'FETCH_MOVIES' });
 	}
 
 	handleClick = id => {
+		//pushes to details page of id clicked on
 		this.props.history.push(`/details/${id}`);
 	};
 
 	render() {
 		const { classes } = this.props;
-
+		//maps over list of movies and creates a movie item for each
 		let gridHtml = this.props.movies.map(movie => {
 			return (
-				<Grid container key={movie.id} item xs={12} sm={6} md={4}>
+				//num of columns in grid is responsive to screen size
+				<Grid key={movie.id} item xs={12} sm={6} md={4} lg={3}>
 					<MovieItem movie={movie} handleClick={this.handleClick} />
 				</Grid>
 			);

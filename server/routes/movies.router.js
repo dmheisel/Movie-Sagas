@@ -20,22 +20,22 @@ router.get('/', (req, res) => {
       GROUP BY
         movies.id;`;
 
-  pool
-    .query(sqlText)
-    .then(result => {
-      console.log('GET request from database successful')
-      res.send(result.rows)
-    })
-    .catch(error => {
-      console.log('Error on GET route from database: ', error)
-      res.sendStatus(500)
-    })
+	pool
+		.query(sqlText)
+		.then(result => {
+			console.log('GET request from database successful');
+			res.send(result.rows);
+		})
+		.catch(error => {
+			console.log('Error on GET route from database: ', error);
+			res.sendStatus(500);
+		});
 });
 
 //get specific movie and details
 router.get('/details/:id', (req, res) => {
-  let id = req.params.id
-  let sqlText = `
+	let id = req.params.id;
+	let sqlText = `
     SELECT movies.id, title, poster, array_agg(genres.name)as genres, description
 	FROM
 		movies
@@ -51,40 +51,40 @@ router.get('/details/:id', (req, res) => {
 	GROUP BY
     movies.id;`;
 
-  pool
-    .query(sqlText, [id])
-    .then(result => {
-      console.log(`successful GET route for selecting movie`)
-      res.send(result.rows[0])
-    })
-    .catch(error => {
-      console.log(`error on GET route for selecting movie: `, error)
-      res.sendStatus(500)
-    })
-})
+	pool
+		.query(sqlText, [id])
+		.then(result => {
+			console.log(`successful GET route for selecting movie`);
+			//result.rows will be an array with one object -- sending [0] just sends the object
+			res.send(result.rows[0]);
+		})
+		.catch(error => {
+			console.log(`error on GET route for selecting movie: `, error);
+			res.sendStatus(500);
+		});
+});
 
-//edit description of movie
+//edit description and title of movie
 router.put('/:id', (req, res) => {
-  let sqlText = `
+	let sqlText = `
     UPDATE "movies"
     SET
       "title" = $1,
       "description" = $2
     WHERE
-      "id" = $3;`
+      "id" = $3;`;
 
-  let values = [req.body.title, req.body.description, req.params.id]
-  pool
-    .query(sqlText, values)
-    .then(result => {
-      console.log('PUT route to database successful')
-      res.sendStatus(204)
-    })
-    .catch(error => {
-      console.log('Error on PUT route to database: ', error);
-      res.sendStatus(500)
-    })
-})
-
+	let values = [req.body.title, req.body.description, req.params.id];
+	pool
+		.query(sqlText, values)
+		.then(result => {
+			console.log('PUT route to database successful');
+			res.sendStatus(201);
+		})
+		.catch(error => {
+			console.log('Error on PUT route to database: ', error);
+			res.sendStatus(500);
+		});
+});
 
 module.exports = router;

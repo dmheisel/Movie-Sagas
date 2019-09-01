@@ -7,16 +7,15 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+//styling for page
 const styles = theme => ({
-	root: {
-		flexGrow: 1,
-		marginTop: '2.5%'
-	},
 	paper: {
 		padding: theme.spacing(2),
 		display: 'flex',
 		margin: 'auto',
-		width: '80vw'
+		width: '80vw',
+		flexGrow: 1,
+		marginTop: '2.5%'
 	},
 	descriptionField: {
 		width: '50vw',
@@ -39,6 +38,7 @@ const styles = theme => ({
 });
 
 class Edit extends Component {
+	//local state to keep current values in input fields
 	state = {
 		titleText: this.props.movie.title,
 		descriptionText: this.props.movie.description
@@ -60,21 +60,24 @@ class Edit extends Component {
 	// }
 
 	handleSubmit = () => {
+		//creates movie to send as payload
 		let editedMovie = {
 			id: this.props.movie.id,
 			title: this.state.titleText,
 			description: this.state.descriptionText
 		};
 		console.log(editedMovie);
+		//dispatches to sagas with new info
 		this.props.dispatch({ type: 'EDIT_MOVIE', payload: editedMovie });
+		//pushes back to details page for movie
 		this.props.history.push(`/details/${this.props.movie.id}`);
 	};
 
 	render() {
 		const { classes } = this.props;
 		return (
-			<div className={classes.root}>
-				<Paper className={classes.paper}>
+			<Paper className={classes.paper}>
+				{/* Paper is background for poster and edit fields */}
 					<div>
 						<img src={this.props.movie.poster} alt='movie poster' />
 					</div>
@@ -114,7 +117,6 @@ class Edit extends Component {
 						</div>
 					</div>
 				</Paper>
-			</div>
 		);
 	}
 }

@@ -11,6 +11,7 @@ class App extends Component {
     return (
 			<Router>
 				<CssBaseline />
+				{/* cssbaseline removes any styling so material-ui starts at base */}
 				<Route exact path='/' component={Home} />
 				<Route path='/details/:id' component={Details} />
 				<Route path='/edit/:id' component={Edit} />
