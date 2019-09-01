@@ -8,7 +8,6 @@ import { withStyles } from '@material-ui/core/styles';
 import MovieItem from '../MovieItem/ MovieItem';
 
 const styles = theme => ({
-	root: {},
 	paper: {
 		flexGrow: 1,
 		padding: theme.spacing(2),
