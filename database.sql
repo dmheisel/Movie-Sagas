@@ -1,3 +1,5 @@
+CREATE DATABASE "movies_saga_db";
+
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(120) NOT NULL,
