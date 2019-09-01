@@ -16,13 +16,29 @@ const styles = theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		margin: 'auto',
-		width: '80vw'
+		width: '80vw',
+		display: 'flex'
+	},
+	textField: {
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1)
+	},
+	content: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	buttonContainer: {
+		display: 'inline',
+		margin: 'auto'
 	}
 });
 
 class Details extends Component {
 	componentDidMount() {
-		this.props.dispatch({type: 'SELECT_MOVIE', payload: this.props.match.params.id})
+		this.props.dispatch({
+			type: 'SELECT_MOVIE',
+			payload: this.props.match.params.id
+		});
 	}
 	render() {
 		const { classes } = this.props;
@@ -30,23 +46,32 @@ class Details extends Component {
 		return (
 			<div className={classes.root}>
 				<Paper className={classes.paper}>
-					<Typography variant="h3">
-						{this.props.movie.title}
-					</Typography>
-					<Typography variant='body1'>
-						{this.props.movie.description}
-					</Typography>
-					<GenreList genres={this.props.movie.genres} inDetails={true}/>
-					<Button
-						onClick={() => this.props.history.push('/')}
-						color='secondary'>
-						Return to List
-					</Button>
-					<Button
-						onClick={() => this.props.history.push(`/edit/${this.props.match.params.id}`)}
-						color='secondary'>
-						Edit
-					</Button>
+					<div>
+						<img src={this.props.movie.poster} alt="Movie Poster"/>
+					</div>
+					<div className={classes.content}>
+						<Typography className={classes.textField} variant='h3'>
+							{this.props.movie.title}
+						</Typography>
+						<Typography className={classes.textField} variant='body1'>
+							{this.props.movie.description}
+						</Typography>
+						<GenreList genres={this.props.movie.genres} inDetails={true} />
+						<div className={classes.buttonContainer}>
+							<Button
+								onClick={() => this.props.history.push('/')}
+								color='secondary'>
+								Return to List
+							</Button>
+							<Button
+								onClick={() =>
+									this.props.history.push(`/edit/${this.props.match.params.id}`)
+								}
+								color='secondary'>
+								Edit
+							</Button>
+						</div>
+					</div>
 				</Paper>
 			</div>
 		);

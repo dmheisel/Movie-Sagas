@@ -8,14 +8,14 @@ import { withStyles } from '@material-ui/core/styles';
 import MovieItem from '../MovieItem/ MovieItem';
 
 const styles = theme => ({
-	root: {
-		flexGrow: 1,
-		marginTop: '2.5%'
-	},
+	root: {},
 	paper: {
+		flexGrow: 1,
 		padding: theme.spacing(2),
 		margin: 'auto',
-		maxWidth: '95%',
+		maxWidth: '80vw',
+		maxHeight: '95vh',
+		marginTop: '2%',
 		background: theme.palette.background
 	},
 	grid: {

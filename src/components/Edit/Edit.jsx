@@ -14,13 +14,27 @@ const styles = theme => ({
 	},
 	paper: {
 		padding: theme.spacing(2),
+		display: 'flex',
 		margin: 'auto',
 		width: '80vw'
 	},
 	descriptionField: {
-		width: '75vw',
+		width: '50vw',
 		marginLeft: theme.spacing(1),
 		marginRight: theme.spacing(1)
+	},
+	titleField: {
+		width: '25vw',
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1)
+	},
+	content: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	buttonContainer: {
+		display: 'inline',
+		margin: 'auto'
 	}
 });
 
@@ -29,16 +43,22 @@ class Edit extends Component {
 		titleText: this.props.movie.title,
 		descriptionText: this.props.movie.description
 	};
+
 	componentDidMount() {
+		//selects the movie from the server, this goes to saga which sends to reducer
 		this.props.dispatch({
 			type: 'SELECT_MOVIE',
 			payload: this.props.match.params.id
 		});
-		this.setState({
-			titleText: this.props.movie.title,
-			descriptionText: this.props.movie.description
-		})
 	}
+	//this below will update state once props are received but throws errors, leaving out for now
+	// componentWillReceiveProps(newProps) {
+	// 	this.setState({
+	// 		titleText: newProps.movie.title,
+	// 		descriptionText: newProps.movie.description
+	// 	});
+	// }
+
 	handleSubmit = () => {
 		let editedMovie = {
 			id: this.props.movie.id,
@@ -55,35 +75,44 @@ class Edit extends Component {
 		return (
 			<div className={classes.root}>
 				<Paper className={classes.paper}>
-					<TextField
-						id='MovieTitleInput'
-						label='Edit Movie Title'
-						value={this.state.titleText}
-						onChange={e => this.setState({ titleText: e.target.value })}
-						className={classes.titleField}
-						margin='normal'
-						helperText='Edit Movie Title'
-						variant='outlined'
-					/>
-					<TextField
-						id='MovieDescriptionInput'
-						label='Edit Movie Description'
-						multiline
-						value={this.state.descriptionText}
-						onChange={e => this.setState({ descriptionText: e.target.value })}
-						className={classes.descriptionField}
-						margin='normal'
-						helperText='Edit Movie Description'
-						variant='outlined'
-					/>
-					<Button
-						onClick={() => this.props.history.push(`/details/${this.props.movie.id}`)}
-						color='secondary'>
-						Cancel
-					</Button>
-					<Button onClick={this.handleSubmit} color='secondary'>
-						Submit
-					</Button>
+					<div>
+						<img src={this.props.movie.poster} alt='movie poster' />
+					</div>
+					<div className={classes.content}>
+						<TextField
+							id='MovieTitleInput'
+							label='Edit Movie Title'
+							value={this.state.titleText}
+							onChange={e => this.setState({ titleText: e.target.value })}
+							className={classes.titleField}
+							margin='normal'
+							helperText='Edit Movie Title'
+							variant='outlined'
+						/>
+						<TextField
+							id='MovieDescriptionInput'
+							label='Edit Movie Description'
+							multiline
+							value={this.state.descriptionText}
+							onChange={e => this.setState({ descriptionText: e.target.value })}
+							className={classes.descriptionField}
+							margin='normal'
+							helperText='Edit Movie Description'
+							variant='outlined'
+						/>
+						<div className={classes.buttonContainer}>
+							<Button
+								onClick={() =>
+									this.props.history.push(`/details/${this.props.movie.id}`)
+								}
+								color='secondary'>
+								Cancel
+							</Button>
+							<Button onClick={this.handleSubmit} color='secondary'>
+								Submit
+							</Button>
+						</div>
+					</div>
 				</Paper>
 			</div>
 		);

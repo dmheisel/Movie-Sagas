@@ -38,7 +38,6 @@ class MovieItem extends Component {
 
 		return (
 			<Paper className={classes.moviePoster}>
-				<Grid xs={12} item>
 					<ButtonBase
 						className={classes.image}
 						onClick={() => this.props.handleClick(this.props.movie.id)}>
@@ -48,15 +47,10 @@ class MovieItem extends Component {
 							src={this.props.movie.poster}
 						/>
 					</ButtonBase>
-				</Grid>
-				<Grid xs={12} item>
 					<Typography variant='subtitle1' noWrap={false}>
 						{this.props.movie.title}
 					</Typography>
-				</Grid>
-				<Grid xs={12} item>
 					<GenreList genres={this.props.movie.genres} />
-				</Grid>
 			</Paper>
 		);
 	}
