@@ -10,7 +10,6 @@ import {
 	Divider
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import GenreList from '../GenreList/GenreList';
 import { borderRadius } from '@material-ui/system';
 
 //styling for page
@@ -45,6 +44,7 @@ const styles = theme => ({
 class MovieItem extends Component {
 	render() {
 		const { classes } = this.props;
+		//creates a list item for all genres in ths movie
 		let genres = this.props.movie.genres.map((genre, index) => {
 			return (
 				<section key={index}>
