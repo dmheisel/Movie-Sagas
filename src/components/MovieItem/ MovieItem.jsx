@@ -47,12 +47,12 @@ class MovieItem extends Component {
 		const { classes } = this.props;
 		let genres = this.props.movie.genres.map((genre, index) => {
 			return (
-				<>
+				<section key={index}>
 					{index > 0 && <Divider />}
-					<ListItem key={index}>
+					<ListItem >
 						<ListItemText primary={genre} />
 					</ListItem>
-				</>
+				</section>
 			);
 		});
 		return (

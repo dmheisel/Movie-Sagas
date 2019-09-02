@@ -14,21 +14,20 @@ const styles = theme => ({
 class GenreItem extends Component {
 	//local state to control view of chip
 	state = {
-		isOpen: this.props.inDetails ? true : false
+		movieHasGenre: this.props.inEdit ? this.props.movieHasGenre : 'true'
+		//if in edit mode, return the value of the movieHasGenre prop, else return true
 	};
 
 	render() {
 		const { classes } = this.props;
 		return (
 			<Chip
-				label={this.state.isOpen && this.props.genre}
-				// label shows full genre name if chip state 'isOpen'
+				label={this.props.name}
 				className={classes.chip}
-				color='primary'
-				avatar={<Avatar>{this.props.genre[0]}</Avatar>}
-				//avatar for chip is first letter of genre name
-				onClick={e => this.setState({ isOpen: !this.state.isOpen })}
-				//toggles isOpen state of chip
+				color={this.state.movieHasGenre ? 'primary' : 'secondary'}
+				//color is based on if the movie selected has the genre displayed
+				avatar={<Avatar>{this.props.name[0]}</Avatar>}
+				// onClick={e => {}}
 			/>
 		);
 	}
