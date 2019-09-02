@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 router.get('/details/:id', (req, res) => {
 	let id = req.params.id;
 	let sqlText = `
-    SELECT movies.id, title, poster, array_agg(genres.name)as genres, description
+    SELECT movies.id, title, poster, array_agg(genres.name)as genres, array_agg(movies_genres.id) as junction_table_ids, description
 	FROM
 		movies
 	JOIN

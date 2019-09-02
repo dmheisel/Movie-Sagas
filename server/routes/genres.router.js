@@ -21,4 +21,41 @@ router.get('/', (req, res) => {
     })
 })
 
+//delete genre from movie by removing from junction table
+router.delete('/:id', (req, res) => {
+  let id = req.params.id
+  let sqlText = `
+      DELETE FROM "movies_genres"
+      WHERE "id" = $1;`
+  pool
+    .query(sqlText, [id])
+    .then(result => {
+      console.log(`successful DELETE route to database`)
+      res.sendStatus(204)
+    })
+    .catch(error => {
+      console.log(`error on DELETE route to database: ${error}`)
+    })
+})
+
+//add genre to movie by inserting into junction table
+router.post(`/`, (req, res) => {
+  let sqlText = `
+      INSERT
+        INTO "movies_genres"
+          ("movies_id", "genres_id")
+        VALUES
+          ($1, $2);`
+  let values = [req.body.movieId, req.body.genreId]
+  pool
+    .query(sqlText, values)
+    .then(result => {
+      console.log(`successful POST route to database`)
+      res.sendStatus(201)
+    })
+    .catch(error => {
+      console.log(`error on POST route to database: ${error}`)
+      res.sendStatus(500)
+    })
+})
 module.exports = router

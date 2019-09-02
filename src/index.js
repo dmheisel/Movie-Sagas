@@ -29,6 +29,8 @@ function* rootSaga() {
 	yield takeEvery('SELECT_MOVIE', selectMovie);
 	yield takeEvery('EDIT_MOVIE', editMovie);
 	yield takeEvery('FETCH_GENRES', fetchGenres);
+	yield takeEvery('ADD_GENRE', addGenre);
+	yield takeEvery('REMOVE_GENRE', removeGenre);
 }
 
 //saga function to fetch all moves from database
@@ -63,10 +65,30 @@ function* editMovie(action) {
 
 function* fetchGenres(action) {
 	try {
-		let response = yield axios.get('/genres')
-		yield put ({type: 'SET_GENRES', payload: response.data})
+		let response = yield axios.get('/genres');
+		yield put({ type: 'SET_GENRES', payload: response.data });
 	} catch (error) {
-		yield console.log('error on fetching genres from server')
+		yield console.log('error on fetching genres from server');
+	}
+}
+
+function* addGenre(action) {
+	try {
+		yield axios.post(`/genres`, action.payload);
+		yield put({ type: 'FETCH_MOVIES' });
+		yield put({ type: 'SELECT_MOVIE', payload: action.payload.movieId });
+	} catch (error) {
+		yield console.log('error on adding genre to movie from server');
+	}
+}
+
+function* removeGenre(action) {
+	try {
+		yield axios.delete(`/genres/${action.payload.junctionId}`);
+		yield put({ type: 'FETCH_MOVIES' });
+		yield put({ type: 'SELECT_MOVIE', payload: action.payload.movieId });
+	} catch (error) {
+		yield console.log('error on deleting genre from movie');
 	}
 }
 
