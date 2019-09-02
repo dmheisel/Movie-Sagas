@@ -15,21 +15,6 @@ const styles = theme => ({
 
 class GenreList extends Component {
 	//component that loops over genres and creates GenreItem for each one
-	handleClick = (genreId, movieHasGenre) => {
-		if (movieHasGenre === true) {
-			console.log(`Removing ${genreId} from movie`);
-			this.props.dispatch({
-				type: 'REMOVE_GENRE',
-				payload: { genreId: genreId, movieId: this.props.currentMovie.id }
-			});
-		} else {
-			console.log(`Adding ${genreId} to movie`);
-			this.props.dispatch({
-				type: 'ADD_GENRE',
-				payload: { genreId: genreId, movieId: this.props.currentMovie.id }
-			});
-		}
-	};
 
 	render() {
 		const { classes } = this.props;
@@ -42,11 +27,9 @@ class GenreList extends Component {
 							name={genre.name}
 							genre={genre}
 							inEdit={this.props.inEdit}
-							movieHasGenre={this.props.genres.includes(genre.name)}
-							handleClick={this.handleClick}
 						/>
 				  ))
-				: this.props.genres.map((genre, index) => (
+				: this.props.currentMovie.genres.map((genre, index) => (
 						<GenreItem key={index} name={genre} inEdit={this.props.inEdit} />
 				  ));
 

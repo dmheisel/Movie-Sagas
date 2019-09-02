@@ -55,6 +55,7 @@ class Edit extends Component {
 			type: 'FETCH_GENRES'
 		})
 	}
+	//trying to find a way to keep text inputs filled in on refresh
 	//this below will update state once props are received but throws errors, leaving out for now
 	// componentWillReceiveProps(newProps) {
 	// 	this.setState({
@@ -107,7 +108,7 @@ class Edit extends Component {
 						helperText='Edit Movie Description'
 						variant='outlined'
 					/>
-					<GenreList inEdit={true} genres={this.props.movie.genres} />
+					<GenreList inEdit={true}/>
 					<div className={classes.buttonContainer}>
 						<Button
 							onClick={() =>
