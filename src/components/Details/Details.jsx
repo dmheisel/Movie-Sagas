@@ -53,7 +53,7 @@ class Details extends Component {
 						{this.props.movie.description}
 					</Typography>
 					{/* GenreList is reusable component to display genres */}
-					<GenreList genres={this.props.movie.genres} inDetails={true} />
+					<GenreList inEdit={false} />
 					<div className={classes.buttonContainer}>
 						<Button
 							onClick={() => this.props.history.push('/')}

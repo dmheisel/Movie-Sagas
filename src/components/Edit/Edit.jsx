@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GenreList from '../GenreList/GenreList';
 
 //material-ui imports
 import { withStyles } from '@material-ui/core/styles';
@@ -50,7 +51,11 @@ class Edit extends Component {
 			type: 'SELECT_MOVIE',
 			payload: this.props.match.params.id
 		});
+		this.props.dispatch({
+			type: 'FETCH_GENRES'
+		})
 	}
+	//trying to find a way to keep text inputs filled in on refresh
 	//this below will update state once props are received but throws errors, leaving out for now
 	// componentWillReceiveProps(newProps) {
 	// 	this.setState({
@@ -78,45 +83,46 @@ class Edit extends Component {
 		return (
 			<Paper className={classes.paper}>
 				{/* Paper is background for poster and edit fields */}
-					<div>
-						<img src={this.props.movie.poster} alt='movie poster' />
+				<div>
+					<img src={this.props.movie.poster} alt='movie poster' />
+				</div>
+				<div className={classes.content}>
+					<TextField
+						id='MovieTitleInput'
+						label='Edit Movie Title'
+						value={this.state.titleText}
+						onChange={e => this.setState({ titleText: e.target.value })}
+						className={classes.titleField}
+						margin='normal'
+						helperText='Edit Movie Title'
+						variant='outlined'
+					/>
+					<TextField
+						id='MovieDescriptionInput'
+						label='Edit Movie Description'
+						multiline
+						value={this.state.descriptionText}
+						onChange={e => this.setState({ descriptionText: e.target.value })}
+						className={classes.descriptionField}
+						margin='normal'
+						helperText='Edit Movie Description'
+						variant='outlined'
+					/>
+					<GenreList inEdit={true}/>
+					<div className={classes.buttonContainer}>
+						<Button
+							onClick={() =>
+								this.props.history.push(`/details/${this.props.movie.id}`)
+							}
+							color='secondary'>
+							Cancel
+						</Button>
+						<Button onClick={this.handleSubmit} color='secondary'>
+							Submit
+						</Button>
 					</div>
-					<div className={classes.content}>
-						<TextField
-							id='MovieTitleInput'
-							label='Edit Movie Title'
-							value={this.state.titleText}
-							onChange={e => this.setState({ titleText: e.target.value })}
-							className={classes.titleField}
-							margin='normal'
-							helperText='Edit Movie Title'
-							variant='outlined'
-						/>
-						<TextField
-							id='MovieDescriptionInput'
-							label='Edit Movie Description'
-							multiline
-							value={this.state.descriptionText}
-							onChange={e => this.setState({ descriptionText: e.target.value })}
-							className={classes.descriptionField}
-							margin='normal'
-							helperText='Edit Movie Description'
-							variant='outlined'
-						/>
-						<div className={classes.buttonContainer}>
-							<Button
-								onClick={() =>
-									this.props.history.push(`/details/${this.props.movie.id}`)
-								}
-								color='secondary'>
-								Cancel
-							</Button>
-							<Button onClick={this.handleSubmit} color='secondary'>
-								Submit
-							</Button>
-						</div>
-					</div>
-				</Paper>
+				</div>
+			</Paper>
 		);
 	}
 }

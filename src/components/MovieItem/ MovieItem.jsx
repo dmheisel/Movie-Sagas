@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 //material-ui imports
-import { Paper, Typography, ButtonBase } from '@material-ui/core';
+import {
+	Paper,
+	Typography,
+	ButtonBase,
+	List,
+	ListItem,
+	ListItemText,
+	Divider
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import GenreList from '../GenreList/GenreList';
+import { borderRadius } from '@material-ui/system';
 
 //styling for page
 const styles = theme => ({
 	moviePoster: {
 		padding: theme.spacing(2),
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText,
 		margin: 'auto',
 		maxWidth: 225
 	},
@@ -23,13 +33,28 @@ const styles = theme => ({
 	},
 	title: {
 		textAlign: 'center'
+	},
+	list: {
+		backgroundColor: theme.palette.primary.light,
+		color: theme.palette.primary.contrastText,
+		borderRadius: '5px'
 	}
 });
 
 class MovieItem extends Component {
 	render() {
 		const { classes } = this.props;
-
+		//creates a list item for all genres in ths movie
+		let genres = this.props.movie.genres.map((genre, index) => {
+			return (
+				<section key={index}>
+					{index > 0 && <Divider />}
+					<ListItem >
+						<ListItemText primary={genre} />
+					</ListItem>
+				</section>
+			);
+		});
 		return (
 			<Paper className={classes.moviePoster}>
 				<ButtonBase
@@ -45,7 +70,9 @@ class MovieItem extends Component {
 				<Typography variant='subtitle1' noWrap={false}>
 					{this.props.movie.title}
 				</Typography>
-				<GenreList genres={this.props.movie.genres} />
+				<List dense={true} className={classes.list}>
+					{genres}
+				</List>
 			</Paper>
 		);
 	}
