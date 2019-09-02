@@ -28,6 +28,7 @@ function* rootSaga() {
 	yield takeEvery('FETCH_MOVIES', fetchMovies);
 	yield takeEvery('SELECT_MOVIE', selectMovie);
 	yield takeEvery('EDIT_MOVIE', editMovie);
+	yield takeEvery('FETCH_GENRES', fetchGenres);
 }
 
 //saga function to fetch all moves from database
@@ -60,6 +61,15 @@ function* editMovie(action) {
 	}
 }
 
+function* fetchGenres(action) {
+	try {
+		let response = yield axios.get('/genres')
+		yield put ({type: 'SET_GENRES', payload: response.data})
+	} catch (error) {
+		yield console.log('error on fetching genres from server')
+	}
+}
+
 //REDUCERS
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
@@ -71,7 +81,7 @@ const movies = (state = [], action) => {
 	}
 };
 
-// Used to store the movie genres --  unused?
+// Used to store all the movie genres, for comparing against current movie
 const genres = (state = [], action) => {
 	switch (action.type) {
 		case 'SET_GENRES':
