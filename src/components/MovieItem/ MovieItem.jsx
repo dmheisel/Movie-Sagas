@@ -10,7 +10,6 @@ import {
 	Divider
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { borderRadius } from '@material-ui/system';
 
 //styling for page
 const styles = theme => ({
